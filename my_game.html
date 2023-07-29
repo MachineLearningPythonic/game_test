@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Fish Floating Game</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #game-container {
+            height: 300px;
+            border: 1px solid black;
+            position: relative;
+            overflow: hidden;
+        }
+        .fish {
+            position: absolute;
+            left: -100px;
+            bottom: 50%;
+            animation: swim 10s linear infinite; /* Increased duration to 10s for slower motion */
+            width: 100px;
+            height: auto;
+        }
+        .burst {
+            animation: burst 1s forwards;
+        }
+        @keyframes swim {
+            0% {left: -100px; bottom: 30%;}
+            50% {left: 50%; bottom: 70%;}
+            100% {left: 100%; bottom: 30%;}
+        }
+        @keyframes burst {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="game-container">
+            <img class="fish" src="fish1.png" alt="fish" style="animation-delay: 0s;" />
+            <img class="fish" src="fish1.png" alt="fish" style="animation-delay: 2s;" />
+            <img class="fish" src="fish1.png" alt="fish" style="animation-delay: 4s;" />
+            <img class="fish" src="fish1.png" alt="fish" style="animation-delay: 6s;" />
+            <img class="fish" src="fish1.png" alt="fish" style="animation-delay: 8s;" />
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.fish').click(function() {
+                var fishPosition = $(this).position();  // get current position
+                $(this).css('left', fishPosition.left);  // fix horizontal position
+                $(this).css('bottom', fishPosition.bottom);  // fix vertical position
+                $(this).css('animation', 'none');  // stop swim animation
+                setTimeout(() => { $(this).css('animation', 'burst 1s forwards'); }, 0);  // start burst animation after a slight delay
+            });
+        });
+    </script>
+</body>
+</html>
